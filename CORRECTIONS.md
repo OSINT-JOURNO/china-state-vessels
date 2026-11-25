@@ -11,3 +11,4 @@ with the reason, so anyone who used an earlier version can see what changed.
 | Date | Vessel ID | Change | Source |
 |---|---|---|---|
 | 2026-11-25 | all | First release: 85 vessels | This repository |
+| 2026-11-25 | CNV-M006 | Removed "early September 2023": the source does not date the mission | Daily Tribune, 10 Sep 2023 |
