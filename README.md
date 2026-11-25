@@ -1,0 +1,89 @@
+# china-state-vessels
+
+An open, sourced list of Chinese state-linked vessels for journalists and researchers: research and survey ships,
+PLA intelligence, tracking and survey ships, China Coast Guard ships, and boats that named sources identify as
+China's maritime militia. Every fact in every row has a source, a date checked, and, for the militia, the name of who
+made the identification.
+
+**[data/vessels.csv](data/vessels.csv)**: 85 vessels, first release, checked 25 November 2026.
+
+| Group | Vessels | Notes |
+|---|---|---|
+| Research and survey (`research`, `survey`) | 19 | Ministry of Natural Resources, China Geological Survey, Chinese Academy of Sciences and university ships, with port calls and surveys that made news |
+| PLA ships (`intelligence`, `space_tracking`, `navy_survey`) | 16 | Dongdiao-class intelligence ships, Yuan Wang tracking ships, Shupang-class survey ships; sightings from Japan's Joint Staff Office, the Philippines and Australia |
+| China Coast Guard (`coast_guard`) | 21 | Cutters named in incidents with the Philippines, Japan, Vietnam, Indonesia and Taiwan, with each side's account where one was given |
+| Maritime militia (`militia`) | 29 | All "assessed": identified by CSIS AMTI, the Philippine Coast Guard or the Philippine government, or documented by Erickson and Martinson; none is stated as fact |
+
+- 30 vessels have an MMSI; 23 of them are confirmed in the ITU's official ship station register (ITU MARS). The
+  other 7 are militia boats, whose MMSIs come from CSIS AMTI's published table.
+- 32 have the Chinese name, only where a source shows the characters. 33 have a hull or pennant number.
+- Most coast guard and navy ships have no public MMSI or IMO number, and most militia boats run with AIS off. Blank
+  means "not established from a public source", never "none".
+
+## The columns
+
+| Column | What it holds |
+|---|---|
+| `id` | Stable ID: `CNV-R` research and survey, `CNV-N` PLA, `CNV-C` coast guard, `CNV-M` militia |
+| `name_en`, `name_zh`, `former_names` | Names as the sources write them |
+| `category` | `research`, `survey`, `space_tracking`, `intelligence`, `navy_survey`, `coast_guard`, `militia` |
+| `hull_number`, `imo`, `mmsi`, `call_sign`, `flag` | Identifiers, each with its source in `identifier_sources` |
+| `operator`, `home_port`, `type_or_class`, `built_year` | As far as the sources establish them |
+| `notable_activity` | One dated event, in the words of a named source |
+| `label_source`, `label_tier` | Who identified the vessel's role, when, and how firmly (see [METHOD.md](METHOD.md)) |
+| `confidence`, `confidence_reason` | How solid the row is, and why |
+| `registry_check` | What the ITU register showed |
+| `sources`, `identifier_sources` | The source URLs |
+| `last_checked` | When the row was last checked |
+
+## How it was built
+
+Each row was researched with a source for every filled field, then checked by a separate, independent fact-check
+against those sources. Rows that could not be supported were left out: for this release that included a boat
+identified only from a partly visible bow number, a survey ship with no state link, and a coast guard cutter that was
+only present at a stand-off. `tools/build.py` then refuses any row that breaks the rules (no source, an unattributed
+militia label, a malformed MMSI or IMO number, a duplicate, a value from a tracking site whose terms forbid datasets).
+The full standard is in [METHOD.md](METHOD.md).
+
+`tools/itu_mars.py` looks a ship up in the ITU register. It waits 8 seconds between searches and caches results:
+the register refuses requests that come too fast.
+
+## Using it
+
+- Read `label_source` and `confidence` before quoting a row. "Assessed" means a named source identified the vessel;
+  say who.
+- Identifiers go stale: ships are renamed, renumbered and sold, and MMSIs are reused or spoofed. Check
+  `last_checked`, and check the identifier yourself before relying on it in a story.
+- The South China Sea incidents are contested. The rows say whose account each one is.
+- To map a vessel's track from AIS data you have the rights to use, see
+  [osint-visuals](https://github.com/Ghongha007/osint-visuals) (`track-map`).
+
+## Main sources
+
+CSIS Asia Maritime Transparency Initiative (militia and survey-ship reporting, including the Hainan militia table
+published with *Behind the Curtain*, 12 December 2024), the Philippine Coast Guard and National Maritime Council,
+Japan's Joint Staff Office, Australia's Department of Defence, Indonesia's Bakamla, Taiwan's Coast Guard
+Administration, the US Naval War College China Maritime Studies Institute, the ITU ship station register, the
+NERC/ICES ship-code list, Chinese official and state media, and news reports cited row by row. This dataset reproduces
+facts with attribution, not those sources' text or tables; for AMTI's full list of Hainan vessels, see their article.
+
+## Corrections
+
+Open an issue with the vessel ID and a source. See [CORRECTIONS.md](CORRECTIONS.md).
+
+## What this is not
+
+- Not a list of every Chinese state vessel: it lists what has been documented publicly.
+- Not a finding by OSINT JOURNO that any boat is militia: every such label is someone else's, cited.
+- Not a source of positions or tracks.
+
+## Licence
+
+Data: [CC BY 4.0](LICENSE-DATA.md), credit "China state-linked vessels dataset, OSINT JOURNO". Scripts: MIT
+([LICENSE](LICENSE)). Made by [OSINT JOURNO](https://github.com/OSINT-JOURNO).
+
+## Related
+
+- [china-osint](https://github.com/Ghongha007/china-osint): public records and open data for investigating China
+- [osint-visuals](https://github.com/Ghongha007/osint-visuals): evidence graphics, including animated ship tracks that flag signal gaps
+- [osint-skills](https://github.com/Ghongha007/osint-skills): agent skills for verification
