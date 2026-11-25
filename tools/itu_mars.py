@@ -22,7 +22,7 @@ import urllib.request
 import urllib.error
 
 URL = "https://mmsapp.itu.int/mmsapp/ShipStation/list"
-UA = "china-state-vessels/0.1 (open dataset research; https://github.com/Ghongha007/china-state-vessels)"
+UA = "china-state-vessels/0.1 (open dataset research; https://github.com/OSINT-JOURNO/china-state-vessels)"
 CACHE = os.path.join(os.path.expanduser("~"), ".cache", "china-state-vessels", "itu")
 
 
