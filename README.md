@@ -9,7 +9,8 @@ PLA intelligence, tracking and survey ships, China Coast Guard ships, and boats 
 China's maritime militia. Every row cites its sources and has a date checked; every filled field was researched
 against a source and then fact-checked; militia rows name who made the identification.
 
-**[data/vessels.csv](data/vessels.csv)**: 85 vessels, first release, checked 25 November 2026.
+**[data/vessels.csv](data/vessels.csv)**: 85 vessels, first release, checked 25 November 2026. Also on
+[Hugging Face](https://huggingface.co/datasets/OSINT-JOURNO/china-state-vessels), where you can sort and filter it in the browser.
 
 | Group | Vessels | Notes |
 |---|---|---|
