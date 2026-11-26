@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="assets/banner.svg" width="100%" alt="China state-linked vessels, an open dataset by OSINT JOURNO: 85 vessels (19 research and survey, 16 PLA, 21 coast guard, 29 named as militia), last checked 25 November 2026.">
+</p>
+
 # china-state-vessels
 
 An open, sourced list of Chinese state-linked vessels for journalists and researchers: research and survey ships,
@@ -45,6 +49,9 @@ nearby. `tools/build.py` then refuses any row that breaks the rules it can check
 militia label, a malformed MMSI, an IMO number that fails its check digit, a duplicate, a citation of a tracking site
 whose terms forbid datasets). The working files it builds from (research notes, rejected rows, and source tables we
 cite but do not republish) are not published. The full standard is in [METHOD.md](METHOD.md).
+
+The banner at the top is drawn from the CSV by `tools/make_banner.py` (an animated SVG with no scripts or trackers), and
+a test fails if the banner, its alt text or the vessel count above ever stop matching the data. Each tick in its ring is one vessel; it is a count, not a map.
 
 `tools/itu_mars.py` looks a ship up in the ITU register. It waits 8 seconds between searches and caches results:
 the register refuses requests that come too fast.

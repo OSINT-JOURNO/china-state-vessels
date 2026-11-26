@@ -26,4 +26,22 @@ class PublishedData(unittest.TestCase):
         for r in rows:
             if r["category"] == "militia": self.assertNotRegex(r["notable_activity"], r"^(It|This boat) is (a )?militia")
 
+class Banner(unittest.TestCase):
+    """The banner, its alt text and the README's count line must match the CSV. If this fails, re-run
+    tools/make_banner.py and update the README."""
+    def test_banner_matches_the_data(self):
+        spec = importlib.util.spec_from_file_location("make_banner", os.path.join(ROOT, "tools", "make_banner.py"))
+        mb = importlib.util.module_from_spec(spec); spec.loader.exec_module(mb)
+        counts, total, checked = mb.read_counts()
+        with open(os.path.join(ROOT, "assets", "banner.svg"), encoding="utf-8") as fh:
+            svg = fh.read()
+        self.assertIn(f'aria-label="{mb.label(counts, total, checked)}"', svg)
+        self.assertEqual(sum(counts.values()), total)
+        self.assertNotRegex(svg, r"<script|href=\"http|xlink:href")
+        with open(os.path.join(ROOT, "README.md"), encoding="utf-8") as fh:
+            readme = fh.read()
+        self.assertIn(f'alt="{mb.label(counts, total, checked)}."', readme)
+        when = f"{checked.day} {checked.strftime('%B %Y')}"
+        self.assertRegex(readme, rf"\*\*: {total} vessels, .*checked {when}\.")
+
 if __name__ == "__main__": unittest.main()

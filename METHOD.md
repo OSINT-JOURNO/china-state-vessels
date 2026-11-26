@@ -48,6 +48,8 @@ only to find leads, never as the source of a value.
    cannot be fixed are left out.
 3. `tools/build.py` refuses rows that break the rules above (no source, an unattributed militia label, a malformed
    MMSI, an IMO number that fails its check digit, a duplicate, a value from a tracking site).
+4. `tools/make_banner.py` redraws the README banner from the new CSV; the tests fail if the banner, its alt
+   text or the README's vessel count do not match the CSV.
 
 ## Known limits
 
