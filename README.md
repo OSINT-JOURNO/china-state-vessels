@@ -95,5 +95,6 @@ Data: [CC BY 4.0](LICENSE-DATA.md), credit "China state-linked vessels dataset, 
 ## Related
 
 - [china-osint](https://github.com/Ghongha007/china-osint): public records and open data for investigating China
+- [id-decoder](https://github.com/Ghongha007/id-decoder): decode an MMSI, IMO number or call sign from this list, with the ITU source and its limits
 - [osint-visuals](https://github.com/Ghongha007/osint-visuals): evidence graphics, including animated ship tracks that flag signal gaps
 - [osint-skills](https://github.com/Ghongha007/osint-skills): agent skills for verification
